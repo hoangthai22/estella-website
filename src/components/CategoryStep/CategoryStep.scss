@@ -1,0 +1,50 @@
+.category__step__wrapper {
+    display: flex;
+    margin-top: 40px;
+    font-size: 16px;
+    color: #6b6b6b !important;
+    & > span:first-child {
+        // border-right: 1px solid #6b6b6b;
+        padding-right: 20px;
+        margin-right: 15px;
+        cursor: pointer;
+        position: relative;
+        &::after {
+            content: "❯";
+            position: absolute;
+            right: 0;
+        }
+    }
+
+    & > span:last-child {
+        cursor: pointer;
+    }
+    & > span {
+        cursor: pointer;
+    }
+
+    .step-left {
+        // border-left: 1px solid #6b6b6b;
+        padding-left: 20px;
+        margin-left: 15px;
+        cursor: pointer;
+        position: relative;
+        &::before {
+            content: "❯";
+            position: absolute;
+            left: 0;
+        }
+    }
+    .step-right {
+        // border-right: 1px solid #6b6b6b;
+        padding-right: 20px;
+        margin-right: 15px;
+        position: relative;
+        cursor: pointer;
+        &::after {
+            content: "❯";
+            position: absolute;
+            right: 0;
+        }
+    }
+}

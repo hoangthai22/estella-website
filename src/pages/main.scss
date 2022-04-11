@@ -1,0 +1,44 @@
+.header {
+    max-width: 1140px;
+    max-height: 150px;
+    height: 150px;
+    margin: auto;
+    width: 1140px;
+}
+.content,
+.category__detail__content,
+.product__detail__content,
+.confirm__page__container,
+.cart__content {
+    max-width: 1140px;
+    width: 1140px   ;
+    margin: auto;
+}
+.category__detail__container {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 100px;
+}
+
+.product__detail__container {
+    display: flex;
+    margin-top: 100px;
+    gap: 30px;
+}
+.slider__container {
+    padding: 0 15px;
+}
+@media only screen and (max-width: 800px) {
+    .header {
+        display: none;
+    }
+    .double {
+        width: 100% !important;
+    }
+    .slider__container {
+        padding: 0 15px;
+    }
+    .listCategory__wrapper {
+        // padding: 0 15px;
+    }
+}

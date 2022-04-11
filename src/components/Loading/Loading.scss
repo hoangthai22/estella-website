@@ -1,0 +1,29 @@
+@import "../../App.scss";
+.loading__container {
+    position: fixed;
+    width: 100% !important;
+    height: 100vh;
+    background-color: rgba(0,0,0,.3);
+    color: $primary-color;
+    font-size: 3rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 99;
+    overflow-y: hidden;
+}
+// body{
+//     overflow-y: hidden;
+// }
+.loading {
+    position: fixed;
+    bottom: calc(50% - 20px);
+}
+.loading__wrapper {
+    width: 100px;
+    height: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #fff !important;
+}
