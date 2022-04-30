@@ -4,8 +4,8 @@
   border-radius: 50%;
   border: 1px solid #ccc;
   position: fixed;
-  bottom: 50px;
-  right: 30px;
+  bottom: 190px;
+  right: 33px;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -14,6 +14,7 @@
   height: 40px;
   transition: all 0.3s ease-in-out;
   overflow: hidden;
+  z-index: 99;
   cursor: pointer;
 
   &:hover .gotop__icon {

@@ -24,7 +24,7 @@ const schema = yup.object().shape({
 });
 
 const ConfirmPage = (props) => {
-    const { currentPage, setCurrentPage } = useContext(AppContext);
+    const { currentPage, setCurrentPage, modeMobile } = useContext(AppContext);
     const [total, setTotal] = useState(0);
     const [paymentType, setpaymentType] = useState(-1);
     const history = useNavigate();
@@ -32,12 +32,20 @@ const ConfirmPage = (props) => {
     const [listCity, setListCity] = useState([]);
     const [listDistric, setListDistric] = useState([]);
     const [listWard, setListWard] = useState([]);
+
     const {
         register,
         formState: { errors },
         handleSubmit,
     } = useForm({ resolver: yupResolver(schema) });
 
+    useEffect(() => {
+        handleGotoTop();
+    }, []);
+
+    const handleGotoTop = () => {
+        window.scrollTo({ top: 0, left: 0 });
+    };
     useEffect(() => {
         props.callbackFunc(CHECKOUT_PAGE);
         setCurrentPage(CHECKOUT_PAGE);
@@ -87,10 +95,10 @@ const ConfirmPage = (props) => {
         <div className="confirm__page__container" style={{ marginBottom: 50 }}>
             <div style={{ marginTop: 100, marginBottom: 50 }}></div>
             <div className="input__cart__wrapper">
-                <form style={{ width: "50%", display: "flex", flexDirection: "column" }} onSubmit={handleSubmit(onSubmit)}>
-                    <div style={{ fontSize: 24, fontWeight: 700, paddingBottom: 20 }}>
-                        <span>Thông tin nhận hàng</span>
-                    </div>
+                <form style={{ width: "50%", display: "flex", flexDirection: "column", paddingLeft: 15 }} onSubmit={handleSubmit(onSubmit)}>
+                    <span style={{ fontSize: 24, fontWeight: 700, paddingBottom: 20 }}>
+                        <span className="input__cart__title">Thông tin nhận hàng</span>
+                    </span>
                     {/* <div>
                         <span style={{ fontWeight: 500 }}>Họ và tên</span>
                     </div> */}
@@ -111,7 +119,7 @@ const ConfirmPage = (props) => {
                         <input type="text" placeholder="Địa chỉ " className="input__cart" {...register("address")} />
                     </div>
                     {errors.address && <span className="error">{errors.address?.message}</span>}
-                    <div style={{ height: 60 }} {...register("city")}>
+                    <div className="confirm__input__select" style={{ height: 60 }} {...register("city")}>
                         <select name="city" placeholder="Tỉnh thành " onChange={(e) => handleChosseDistric(e.target.value)} className="input__cart" style={{ height: 44, width: "calc(100% + 14px)" }}>
                             <option value="">-- Tỉnh thành --</option>
                             {listCity.length > 0 &&
@@ -121,8 +129,15 @@ const ConfirmPage = (props) => {
                         </select>
                     </div>
                     {errors.city && <span className="error">{errors.city?.message}</span>}
-                    <div style={{ height: 60 }} {...register("distric")}>
-                        <select name="distric" disabled={listDistric.length === 0 && "true"} placeholder="Quận huyện" onChange={(e) => handleChosseWard(e.target.value)} className="input__cart" style={{ height: 44, width: "calc(100% + 14px)" }}>
+                    <div className="confirm__input__select" style={{ height: 60 }} {...register("distric")}>
+                        <select
+                            name="distric"
+                            disabled={listDistric.length === 0 && "true"}
+                            placeholder="Quận huyện"
+                            onChange={(e) => handleChosseWard(e.target.value)}
+                            className="input__cart"
+                            style={{ height: 44, width: "calc(100% + 14px)" }}
+                        >
                             <option value="">-- Quận huyện --</option>
                             {listDistric.length > 0 &&
                                 listDistric?.map((city) => {
@@ -131,7 +146,7 @@ const ConfirmPage = (props) => {
                         </select>
                     </div>
                     {errors.distric && <span className="error">{errors.distric?.message}</span>}
-                    <div style={{ height: 60 }} {...register("ward")}>
+                    <div className="confirm__input__select" style={{ height: 60 }} {...register("ward")}>
                         <select name="ward" disabled={listWard.length === 0 && "true"} placeholder="Phường xã" className="input__cart" style={{ height: 44, width: "calc(100% + 14px)" }}>
                             <option value="">-- Phường xã --</option>
                             {listWard.length > 0 &&
@@ -144,42 +159,46 @@ const ConfirmPage = (props) => {
                     <div style={{ height: 60 }}>
                         <textarea placeholder="Ghi chú" shape="" coords="" className="input__cart" style={{ height: 70 }} href="" alt="" />
                     </div>
-                    <div className="payment__total">
-                        <div style={{ fontSize: 24, fontWeight: 700 }}>
-                            <span>Tổng cộng</span>
-                        </div>
+                    {!modeMobile && (
+                        <div className="payment__total">
+                            <div style={{ fontSize: 24, fontWeight: 700 }}>
+                                <span>Tổng cộng</span>
+                            </div>
 
-                        <div className="payment__cart__checkout">
-                            <span>Tổng tiền hàng</span>
-                            <span style={{ marginLeft: 0 }}>{caculatorVND(total) + "₫"}</span>
+                            <div className="payment__cart__checkout">
+                                <span>Tổng tiền hàng</span>
+                                <span style={{ marginLeft: 0 }}>{caculatorVND(total) + "₫"}</span>
+                            </div>
+                            <div className="payment__cart__checkout">
+                                <span>Phí vận chuyển</span>
+                                <span style={{ marginLeft: 0 }}>30.000 ₫</span>
+                            </div>
+                            <div className="payment__cart__checkout">
+                                <span style={{ marginRight: 0 }}>Tổng cộng</span>
+                                <span style={{ marginLeft: 0, fontSize: 22, fontWeight: 600 }}>{caculatorVND(total + 30000) + "₫"}</span>
+                            </div>
                         </div>
-                        <div className="payment__cart__checkout">
-                            <span>Phí vận chuyển</span>
-                            <span style={{ marginLeft: 0 }}>30.000 ₫</span>
+                    )}
+                    {!modeMobile && (
+                        <div className="product__info__btn-cart__wrapper btn_payment" style={{ marginTop: 30, cursor: "pointer" }}>
+                            <span style={{ width: "50%", textAlign: "center", margin: "auto", color: "#db7093" }} onClick={hanldeBackCart}>
+                                <FontAwesomeIcon icon={faArrowLeft} style={{ fontSize: 16, color: "#db7093", marginRight: "5px" }} />
+                                Quay lại giỏ hàng
+                            </span>
+                            <input
+                                type="submit"
+                                value={"Đặt hàng"}
+                                style={{ width: "100%", fontSize: 20, fontWeight: 500, height: 50, opacity: paymentType === -1 ? 0.5 : 1 }}
+                                disabled={paymentType === -1 ? true : false}
+                            />
                         </div>
-                        <div className="payment__cart__checkout">
-                            <span style={{ marginRight: 0 }}>Tổng cộng</span>
-                            <span style={{ marginLeft: 0, fontSize: 22, fontWeight: 600 }}>{caculatorVND(total + 30000) + "₫"}</span>
-                        </div>
-                    </div>
-                    <div className="product__info__btn-cart__wrapper btn_payment" style={{ marginTop: 30, cursor: "pointer" }}>
-                        <span style={{ width: "50%", textAlign: "center", margin: "auto", color: "#db7093" }} onClick={hanldeBackCart}>
-                            <FontAwesomeIcon icon={faArrowLeft} style={{ fontSize: 16, color: "#db7093", marginRight: "5px" }} />
-                            Quay lại giỏ hàng
-                        </span>
-                        <input
-                            type="submit"
-                            value={"Đặt hàng"}
-                            style={{ width: "100%", fontSize: 20, fontWeight: 500, height: 50, opacity: paymentType === -1 ? 0.5 : 1 }}
-                            disabled={paymentType === -1 ? true : false}
-                        />
-                    </div>
+                    )}
                 </form>
-                <div style={{ width: "50%", marginLeft: 50, display: "flex", flexDirection: "column" }}>
-                    <div style={{ alignSelf: "start", width: "90%" }}>
-                        <div style={{ fontSize: 24, fontWeight: 700 }}>
-                            <span>Đơn hàng</span>
-                            <div className="">
+                <div style={{ width: "50%", marginLeft: 50, display: "flex", flexDirection: "column", paddingRight: 15 }} className="checkout__order__wrapper__mobile">
+                    <div style={{ alignSelf: "start", width: "100%" }}>
+                        <div className="checkout__order__container" style={{ fontSize: 24, fontWeight: 700 }}>
+                            <span className="checkout__order__title">Đơn hàng</span>
+                            <div className="checkout__order__container__mobile">
                                 {listCart.map((item) => {
                                     return (
                                         <div className="checkout__cart__wrapper">
@@ -191,11 +210,15 @@ const ConfirmPage = (props) => {
                                             </div>
 
                                             <div className="checkout__cart__name">
-                                                <span className="">{item.name}</span>
-                                                <span className="">{item.color}/{item.size}</span>
+                                                <div class="text ellipsis">
+                                                    <span className="checkout__cart__name__text">{item.name}</span>
+                                                </div>
+                                                <span className="">
+                                                    {item.color}/{item.size}
+                                                </span>
                                             </div>
                                             <div className="checkout__cart__price">
-                                                <span className="">{caculatorVND(item.price) + "₫"}</span>
+                                                <span className="">{caculatorVND(item.price * item.quantity)}</span>
                                             </div>
                                         </div>
                                     );
@@ -221,9 +244,9 @@ const ConfirmPage = (props) => {
                             <span style={{ marginLeft: 50, fontSize: 22, fontWeight: 600 }}>{caculatorVND(total + 30000)}</span>
                         </div>
                     </div> */}
-                    <div>
+                    <div className="checkout__payment__wrapper__mobile">
                         <div style={{ fontSize: 24, fontWeight: 700, paddingTop: 30 }}>
-                            <span>Hình thức thanh toán</span>
+                            <span className="checkout__order__title">Hình thức thanh toán</span>
                         </div>
                         <div className="checkout__type__wrapper">
                             <div>
@@ -287,6 +310,42 @@ const ConfirmPage = (props) => {
                             </div>
                         </div>
                     </div>
+                    {modeMobile && (
+                        <div className="payment__total">
+                            <div style={{ fontSize: 24, fontWeight: 700 }}>
+                                <span>Tổng cộng</span>
+                            </div>
+
+                            <div className="payment__cart__checkout">
+                                <span>Tổng tiền hàng</span>
+                                <span style={{ marginLeft: 0 }}>{caculatorVND(total)}</span>
+                            </div>
+                            <div className="payment__cart__checkout">
+                                <span>Phí vận chuyển</span>
+                                <span style={{ marginLeft: 0 }}>30.000 ₫</span>
+                            </div>
+                            <div className="payment__cart__checkout">
+                                <span style={{ marginRight: 0 }}>Tổng cộng</span>
+                                <span style={{ marginLeft: 0, fontSize: 22, fontWeight: 600 }}>{caculatorVND(total + 30000)}</span>
+                            </div>
+                        </div>
+                    )}
+                    {modeMobile && (
+                        <div className="product__info__btn-cart__wrapper btn_payment" style={{ marginTop: 30, cursor: "pointer" }}>
+                            <span style={{ width: "50%", textAlign: "center", margin: "auto", color: "#db7093" }} onClick={hanldeBackCart}>
+                                <FontAwesomeIcon icon={faArrowLeft} style={{ fontSize: 16, color: "#db7093", marginRight: "5px" }} />
+                                Quay lại giỏ hàng
+                            </span>
+                            <button
+                                type="submit"
+                                value={"Đặt hàng"}
+                                style={{ width: "100%", fontSize: 20, fontWeight: 500, height: 50, opacity: paymentType === -1 ? 0.5 : 1 }}
+                                disabled={paymentType === -1 ? true : false}
+                            >
+                                Đặt hàng
+                            </button>
+                        </div>
+                    )}
                 </div>
             </div>
         </div>

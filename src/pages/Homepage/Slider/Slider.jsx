@@ -12,7 +12,7 @@ const Sliders = (props) => {
         slidesToShow: 1,
         slidesToScroll: 1,
         adaptiveHeight: true,
-        autoplay: true,
+        // autoplay: true,
         autoplaySpeed: 3000,
         className: "slider__container",
         lazyLoad: true,

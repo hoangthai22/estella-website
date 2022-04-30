@@ -63,10 +63,12 @@ const ProductList = () => {
                         <div className="productList__loading">
                             <FontAwesomeIcon className="fa-spin" icon={faSpinner} />
                         </div>
-                    ) : (
+                    ) : products.length > 0 ? (
                         products?.map((item) => {
                             return <ProductItem data={item} key={item.id} />;
                         })
+                    ) : (
+                        <span className="product__list__empty" style={{ margin: "20px auto",  }}>Không có sản phẩm nào!</span>
                     )}
                 </div>
                 <div className="productList__paging" style={{ display: products.length === 0 ? "none" : "flex" }}>

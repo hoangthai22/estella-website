@@ -150,3 +150,23 @@
 
     // transition: border-color 0.15s ease-in-out, box-shadow 0.15s;
 }
+.text {
+    position: relative;
+    max-width: 90%;
+}
+.checkout__cart__name__text {
+    text-overflow: ellipsis;
+    word-wrap: break-word;
+    overflow: hidden;
+    max-height: 1em;
+    display: inline-block;
+    line-height: 1em;
+
+    position: relative;
+}
+// .text.ellipsis::after {
+//     content: "...";
+//     position: absolute;
+//     right: -12px;
+//     bottom: 4px;
+// }

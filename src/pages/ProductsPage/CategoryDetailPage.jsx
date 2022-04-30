@@ -9,7 +9,13 @@ import ProductList from "./ProductList/ProductList";
 
 function CategoryDetailPage(props) {
     const { currentPage, setCurrentPage } = useContext(AppContext);
+    useEffect(() => {
+        handleGotoTop();
+    }, []);
 
+    const handleGotoTop = () => {
+        window.scrollTo({ top: 0, left: 0 });
+    };
     useEffect(() => {
         props.callbackFunc(CATEGORY_PAGE);
         setCurrentPage(CATEGORY_PAGE);
