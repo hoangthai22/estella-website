@@ -14,7 +14,7 @@ export const DrawerContent = () => {
     };
     const handleSubmitCategory = (id, slug, categoryName) => {
         setIsOpenDrawer(false);
-        history("/" + slug, { state: { id: id, categoryName: categoryName } });
+        history("/");
     };
     return (
         <div className="drawer__wrapper">
