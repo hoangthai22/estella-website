@@ -2,7 +2,7 @@ export const productList = [
     {
         productName: "Áo khoát đà lạt Áo khoát đà lạt",
         productImg: "https://firebasestorage.googleapis.com/v0/b/estella-da659.appspot.com/o/product2%2F9466f749cc70022e5b61.jpg?alt=media&token=87111fcc-1624-495c-9da2-f024cf57aaff",
-        price: 300.0,
+        price: 300000.0,
         sale: 15,
         totalSize: [],
         size: [
@@ -31,7 +31,7 @@ export const productList = [
     {
         productName: "Áo khoát đà lạt Áo khoát đà lạt",
         productImg: "https://firebasestorage.googleapis.com/v0/b/estella-da659.appspot.com/o/product2%2F9466f749cc70022e5b61.jpg?alt=media&token=87111fcc-1624-495c-9da2-f024cf57aaff",
-        price: 100.0,
+        price: 100000.0,
         sale: 20,
         totalSize: [36, 37, 38, 39, 40, 41, 42, 43, 44],
         size: [
@@ -140,7 +140,7 @@ export const productList = [
     {
         productName: "Áo khoát đà lạt ",
         productImg: "https://firebasestorage.googleapis.com/v0/b/estella-da659.appspot.com/o/product2%2F9466f749cc70022e5b61.jpg?alt=media&token=87111fcc-1624-495c-9da2-f024cf57aaff",
-        price: 100.0,
+        price: 100000.0,
         sale: 20,
         totalSize: [],
         size: [

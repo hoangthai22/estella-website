@@ -1,31 +1,31 @@
 import { faCaretLeft, faCaretRight, faCartPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import React, { useContext, useState, useEffect } from "react";
+import React, { useContext, useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { caculatorSale, caculatorVND } from "../../../constants/Caculator";
 import { LOCALSTORAGE_NAME } from "../../../constants/Pages";
 import { AppContext } from "../../../contexts/AppProvider";
 import "./ProductInfo.scss";
 
 const ProductInfo = (props) => {
-    const { Cart, setCart } = useContext(AppContext);
-    const { productName, price, size, totalSize, sale, _id, productImg } = props.data;
+    const { setCart } = useContext(AppContext);
+    const { productName, price, size, totalSize, sale, _id, productImg, slug, category } = props.data;
     const [indexActive, setIndexActive] = useState("");
     const [colorActive, setColorActive] = useState("");
     const [countQuantity, setcountQuantity] = useState(1);
     const [sizeListCurrent, setSizeListCurrent] = useState([]);
     const [isValidForm, setisValidForm] = useState(true);
-
+    console.log(props.data);
+    const history = useNavigate();
     useEffect(() => {
         setSizeListCurrent(totalSize);
     }, [totalSize]);
 
     useEffect(() => {
         props.callbackFunc(size ? size[0]?.imgTitle : "");
-    }, []);
+    });
 
     const handleChangeIndexSize = (size) => {
-        console.log({ size });
-        console.log({ indexActive });
         if (size === indexActive) {
             setIndexActive("0");
         } else {
@@ -95,7 +95,7 @@ const ProductInfo = (props) => {
         } else setcountQuantity(parseInt(value));
     }
 
-    const handleAddCart = () => {
+    const handleAddCart = (condition) => {
         let isValid = true;
         if (indexActive <= 0) {
             isValid = false;
@@ -110,6 +110,9 @@ const ProductInfo = (props) => {
         if (isValid) {
             setisValidForm(isValid);
             AddCart();
+        }
+        if (condition === "Cart") {
+            history("/cart");
         }
     };
 
@@ -140,6 +143,8 @@ const ProductInfo = (props) => {
                     name: productName,
                     img: productImg,
                     price: price,
+                    slug: slug,
+                    category: category.slug,
                 },
             ];
             setCart(carts);
@@ -166,9 +171,9 @@ const ProductInfo = (props) => {
                 <h1 className="product__info__title">{productName}</h1>
                 <div className="product__info__price__wrapper">
                     <span className="product__info__price__sale" style={{ display: sale > 0 ? "block" : "none" }}>
-                        {caculatorVND(price) + "₫"}
+                        {caculatorVND(price)}
                     </span>
-                    <span className="product__info__price">{caculatorVND(caculatorSale(sale, price)) + "₫"}</span>
+                    <span className="product__info__price">{caculatorVND(caculatorSale(sale, price))}</span>
                     <div className="product__info__price__sale__percent" style={{ display: sale > 0 ? "block" : "none" }}>
                         <span>{sale}% Giảm</span>
                     </div>
@@ -182,7 +187,7 @@ const ProductInfo = (props) => {
                                     <button
                                         style={{ width: "80px" }}
                                         onClick={() => handleChangeIndexSize(item.sizeName ? item.sizeName : item)}
-                                        className={`product__info__size__btn${(item.sizeName ? item.sizeName : item) === indexActive ? " active" : ""}`}
+                                        className={`freesize product__info__size__btn${(item.sizeName ? item.sizeName : item) === indexActive ? " active" : ""}`}
                                         key={item.sizeName ? item.sizeName : item}
                                         disabled={item.quantity === 0}
                                     >
@@ -265,10 +270,10 @@ const ProductInfo = (props) => {
                     </span>
                 </div>
                 <div className="product__info__btn-cart__wrapper">
-                    <button onClick={handleAddCart}>
+                    <button onClick={() => handleAddCart("Add")}>
                         <FontAwesomeIcon icon={faCartPlus} style={{ marginRight: 5 }} /> Thêm Vào Giỏ Hàng
                     </button>
-                    <button onClick={handleAddCart}>Mua ngay</button>
+                    <button onClick={() => handleAddCart("Cart")}>Mua ngay</button>
                 </div>
             </div>
         </div>

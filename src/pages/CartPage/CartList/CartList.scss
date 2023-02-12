@@ -2,11 +2,13 @@
 @import url("https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600&display=swap");
 
 .cart {
+    
     &__wrapper {
         font-family: "Quicksand", sans-serif;
         width: 100%;
         margin-top: 100px;
         margin-bottom: 100px;
+       
     }
 
     &__title {
@@ -124,7 +126,9 @@
     width: 20px;
     height: 20px;
 }
-
+.cart__container{
+    padding: 0 10px;
+}
 .payment__ATM {
     margin: 10px auto;
     width: 530px;

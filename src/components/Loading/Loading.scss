@@ -2,8 +2,8 @@
 .loading__container {
     position: fixed;
     width: 100% !important;
-    height: 100vh;
-    background-color: rgba(0,0,0,.3);
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.3);
     color: $primary-color;
     font-size: 3rem;
     display: flex;
@@ -17,7 +17,7 @@
 // }
 .loading {
     position: fixed;
-    bottom: calc(50% - 20px);
+    // bottom: calc(50% - 20px);
 }
 .loading__wrapper {
     width: 100px;

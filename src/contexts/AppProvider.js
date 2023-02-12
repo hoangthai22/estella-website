@@ -11,7 +11,8 @@ export default function AppProvider({ children }) {
     const [Cart, setCart] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
     const [productDetailStep, setProductDetailStep] = useState("");
-
+    const [modeMobile, setModeMobile] = useState(false);
+    const [isOpenDrawer, setIsOpenDrawer] = React.useState(false);
     useEffect(() => {
         getListCategory().then((res) => {
             setCategoryList(res.data);
@@ -21,7 +22,24 @@ export default function AppProvider({ children }) {
 
     return (
         <AppContext.Provider
-            value={{ productDetailStep, setProductDetailStep, isLoading, setIsLoading, currentPage, setCurrentPage, listProducts, setlistProducts, categoryList, setCategoryList, Cart, setCart }}
+            value={{
+                modeMobile,
+                setModeMobile,
+                isOpenDrawer,
+                setIsOpenDrawer,
+                productDetailStep,
+                setProductDetailStep,
+                isLoading,
+                setIsLoading,
+                currentPage,
+                setCurrentPage,
+                listProducts,
+                setlistProducts,
+                categoryList,
+                setCategoryList,
+                Cart,
+                setCart,
+            }}
         >
             {children}
         </AppContext.Provider>

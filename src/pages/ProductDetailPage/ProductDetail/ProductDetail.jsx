@@ -1,7 +1,7 @@
-import React, { useRef, useState, useEffect } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import { useLocation } from "react-router-dom";
 import Slider from "react-slick";
-
+import { AppContext } from "../../../contexts/AppProvider";
 import "./ProductDetail.scss";
 
 function SampleNextArrow(props) {
@@ -39,29 +39,38 @@ function SamplePrevArrow(props) {
 }
 
 const ProductDetail = (props) => {
+    // const { modeMobile } = useContext(AppContext);
     const location = useLocation();
     const [nav1, setNav1] = useState(null);
     const [nav2, setNav2] = useState(null);
 
-    const { listImgDetail, size } = props.data;
+    const { listImgDetail } = props.data;
     const imgUrl = props.imgUrl;
 
     const slider1 = useRef(null);
     const slider2 = useRef(null);
     const sliderRef = useRef();
+    const [width, setWidth] = useState(window.innerWidth);
+    useEffect(() => {
+        const handleWindowResize = () => setWidth(window.innerWidth);
+        window.addEventListener("resize", handleWindowResize);
+        return () => window.removeEventListener("resize", handleWindowResize);
+    });
 
     const settingsNav2 = {
         className: "product__detail__slider",
-        vertical: true,
-        verticalSwiping: true,
+        vertical: width > 800 ? true : false,
+        verticalSwiping: width > 800 ? true : false,
         asNavFor: nav1,
         ref: slider2,
-        slidesToShow: 4,
+        slidesToShow: width > 800 ? 4 : 1,
         infinite: false,
         swipeToSlide: true,
         focusOnSelect: true,
         speed: 300,
-        lazyLoad: true,
+        // lazyLoad: true,
+        arrows: width > 800 ? true : false,
+        dots: width < 800 ? true : false,
         nextArrow: <SampleNextArrow />,
         prevArrow: <SamplePrevArrow />,
     };
@@ -73,7 +82,7 @@ const ProductDetail = (props) => {
         focusOnSelect: true,
         arrows: false,
         speed: 300,
-        lazyLoad: true,
+        // lazyLoad: true,
     };
     useEffect(() => {
         handleGotoTop();
@@ -112,6 +121,7 @@ const ProductDetail = (props) => {
                 <div className="product__detail__img__slider">
                     <Slider {...settingsNav2} ref={sliderRef}>
                         {listImgDetail?.map((item) => {
+                            console.log(item);
                             return (
                                 <div className="product__detail__img__border slide__border" key={item}>
                                     <img className="product__detail__img" src={item} alt="" />

@@ -10,7 +10,7 @@ const ListCategory = () => {
   return (
     <div className="listCategory__wrapper">
       <div className="listCategory__container">
-        <div className="listCategory__item double">
+        <div className="listCategory__item double double__mobile" style={{width:"50%"}}>
           <div className="listCategory__item__wrapper" onClick={handleRedirectCategory}>
             <img className="listCategory__item__img" src="https://storage.googleapis.com/cdn.nhanh.vn/store/22767/bn/Component_24.png" alt="" />
           </div>

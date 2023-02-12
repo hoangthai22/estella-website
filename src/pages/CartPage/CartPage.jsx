@@ -15,7 +15,7 @@ function CartPage(props) {
 
     return (
         <div className="cart__content">
-            <div className="cart__container">
+            <div className="">
                 <CartList />
             </div>
         </div>
