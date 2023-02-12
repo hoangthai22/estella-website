@@ -1,6 +1,6 @@
 <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p>
 <p align="center">
-<img width="60" height="68" alt="EverShop Logo" src="https://foodd-delivery.netlify.app/images/logo.jpg"/>
+<img width="100" height="100" alt="CONGDONGCHUNG Logo" src="https://foodd-delivery.netlify.app/images/logo.jpg"/>
 </p>
 <p align="center">
   <h1 align="center">CONG DONG CHUNG CU</h1>
@@ -33,7 +33,7 @@ EverShop is a GraphQL Based and React ecommerce platform with essential commerce
 
 ## Demo
 
-Explore our demo store.
+Explore our demo.
 
 <p align="center">
 <img alt="congdongchungcu" width="950" src="https://firebasestorage.googleapis.com/v0/b/deliveryfood-9c436.appspot.com/o/homepage.png?alt=media&token=dc8fa657-b905-47d4-a201-0e87f2882723"/>
